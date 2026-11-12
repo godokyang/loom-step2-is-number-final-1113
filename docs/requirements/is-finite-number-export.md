@@ -18,6 +18,8 @@ work_items:
     effort: 0.6
     depends_on:
       - wi-1
+    status: done
+    self_check: test.js 新增 describe('isFiniteNumber') 两个用例组：有限 number（0、-0、负数、小数、MAX_VALUE、MIN_VALUE、EPSILON）断言 true；NaN、±Infinity、'3'、''、null、undefined、对象、数组、函数等断言 false（strictEqual）；并含默认导出行为回归用例。npm test 全部通过。
   - id: wi-3
     title: README 增加 isFiniteNumber 用法
     deliverable: README.md 新增用法小节，示例命名导出与默认导出区别
