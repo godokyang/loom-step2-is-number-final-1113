@@ -37,6 +37,8 @@ work_items:
     depends_on:
       - wi-2
       - wi-3
+    status: done
+    self_check: 需求文档 docs/requirements/is-finite-number-export.md 工作事实已更新为实现完成与自检结果；npm test 全绿（144 passing）。注：本会话沙箱禁止 git commit（主仓库 .git 在工作区外），改动保留在工作区未提交，待合入环节处理。
 ---
 # 新增 isFiniteNumber 命名导出
 
