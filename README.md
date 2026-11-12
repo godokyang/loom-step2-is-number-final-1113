@@ -77,6 +77,32 @@ isNumber(function () {});    // false
 isNumber({});                // false
 ```
 
+## isFiniteNumber
+
+The library also exposes a named export `isFiniteNumber`, which only returns `true` when the value itself is a finite `number` (not `NaN`, not `Infinity`/`-Infinity`). Unlike the default export, numeric strings such as `'3'` are **not** accepted.
+
+```js
+const { isFiniteNumber } = require('is-number');
+// or: const isFiniteNumber = require('is-number').isFiniteNumber;
+
+isFiniteNumber(0);            // true
+isFiniteNumber(-42);          // true
+isFiniteNumber(3.14);         // true
+isFiniteNumber(Number.MAX_VALUE); // true
+
+isFiniteNumber('3');          // false (default export returns true for this)
+isFiniteNumber('');           // false
+isFiniteNumber(NaN);          // false
+isFiniteNumber(Infinity);     // false
+isFiniteNumber(-Infinity);    // false
+isFiniteNumber(null);         // false
+isFiniteNumber(undefined);    // false
+isFiniteNumber({});           // false
+isFiniteNumber([]);           // false
+```
+
+Use the default export when you want to accept numbers **and** numeric strings (e.g. user input), and `isFiniteNumber` when you need a strict check that the value is already a finite number.
+
 ## Release history
 
 ### 7.0.0

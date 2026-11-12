@@ -16,3 +16,12 @@ module.exports = function(num) {
   }
   return false;
 };
+
+/**
+ * Returns true if the value is a finite number (not NaN, not ±Infinity).
+ * Unlike the default export, non-number values (e.g. '3') always return false.
+ */
+
+module.exports.isFiniteNumber = function(num) {
+  return typeof num === 'number' && isFinite(num);
+};

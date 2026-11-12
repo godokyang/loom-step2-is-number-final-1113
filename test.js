@@ -10,6 +10,7 @@
 require('mocha');
 var assert = require('assert');
 var isNumber = require('./');
+var isFiniteNumber = isNumber.isFiniteNumber;
 
 describe('is a number', function() {
   var fixtures = [
@@ -149,5 +150,70 @@ describe('is not a number', function() {
     it(JSON.stringify(num) + ' should not be a number', function() {
       assert(!isNumber(num), 'expected "' + String(num) + '" to not be a number');
     });
+  });
+});
+
+describe('isFiniteNumber', function() {
+  describe('should return true for finite numbers', function() {
+    var fixtures = [
+      0,
+      -0,
+      37,
+      -42,
+      3.14,
+      -0.1,
+      0xff,
+      5e3,
+      Number.MAX_VALUE,
+      Number.MIN_VALUE,
+      Number.EPSILON
+    ];
+
+    fixtures.forEach(function(num) {
+      it(JSON.stringify(num) + ' should be a finite number', function() {
+        assert.strictEqual(isFiniteNumber(num), true);
+      });
+    });
+  });
+
+  describe('should return false for non-finite or non-number values', function() {
+    var fixtures = [
+      NaN,
+      Infinity,
+      -Infinity,
+      '3',
+      '3.14',
+      '',
+      '   ',
+      'abc',
+      true,
+      false,
+      null,
+      undefined,
+      {},
+      { a: 1 },
+      [],
+      [1],
+      [1, 2, 3],
+      new Date(),
+      Math.sin,
+      function() {},
+      /foo/
+    ];
+
+    fixtures.forEach(function(num) {
+      it(JSON.stringify(num) + ' should not be a finite number', function() {
+        assert.strictEqual(isFiniteNumber(num), false);
+      });
+    });
+  });
+
+  it('should not change the default export behavior', function() {
+    assert.strictEqual(typeof isNumber, 'function');
+    assert.strictEqual(isNumber('3'), true);
+    assert.strictEqual(isNumber('abc'), false);
+    assert.strictEqual(isNumber(3), true);
+    assert.strictEqual(isNumber(NaN), false);
+    assert.strictEqual(isNumber, isFiniteNumber && isNumber);
   });
 });

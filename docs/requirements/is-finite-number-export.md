@@ -2,8 +2,38 @@
 loom_kind: requirement
 id: d0228762-ba4b-4c28-a592-2734efc929c1
 title: 新增 isFiniteNumber 命名导出
+work_items:
+  - id: wi-1
+    title: index.js 新增 isFiniteNumber 命名导出
+    deliverable: index.js 新增 module.exports.isFiniteNumber，默认导出不变
+    completion: typeof 为 number 且有限返回 true，其余输入返回 false
+    effort: 0.6
+    depends_on: []
+    status: done
+    self_check: npm test 实际运行 144 passing（含现有约 130 用例与新增 isFiniteNumber 用例）；index.js 默认导出代码未改动，命名导出仅 typeof==='number' 且 isFinite 时返回 true；README 新增用法小节示例与实际行为一致；无新依赖。
+  - id: wi-2
+    title: test.js 补充 isFiniteNumber 用例
+    deliverable: test.js 新增 describe 块覆盖有限/非有限用例
+    completion: npm test 全部通过（含现有约 130 用例）
+    effort: 0.6
+    depends_on:
+      - wi-1
+  - id: wi-3
+    title: README 增加 isFiniteNumber 用法
+    deliverable: README.md 新增用法小节，示例命名导出与默认导出区别
+    completion: README 示例与实际行为一致
+    effort: 0.4
+    depends_on:
+      - wi-1
+  - id: wi-4
+    title: 维护需求文档工作事实并自检合入
+    deliverable: docs/requirements/is-finite-number-export.md 工作事实更新，npm test 全绿
+    completion: 自检通过并按工作项提交合入
+    effort: 0.4
+    depends_on:
+      - wi-2
+      - wi-3
 ---
-
 # 新增 isFiniteNumber 命名导出
 
 ## 目标
@@ -25,8 +55,8 @@ title: 新增 isFiniteNumber 命名导出
 - 沿用现有 CommonJS 结构与测试框架（Mocha），不引入新依赖。
 
 ## 工作事实
-- 当前阶段：需求共创（已收口，待用户确认）
-- 已完成：目标与完成条件已与用户确认；本需求文档与版本计划已建立
+- 当前阶段：实现完成，自检通过
+- 已完成：index.js 新增 `module.exports.isFiniteNumber`（默认导出不变）；test.js 新增 isFiniteNumber 用例（有限/非有限/默认导出回归，共 144 passing）；README 新增 `## isFiniteNumber` 用法小节；未引入新依赖，沿用 Mocha
 - 阻碍：无
-- 剩余工作：待确认后交需求 Agent 实现、自检、合入
-- 事实来源：本轮用户答复；index.js、test.js、README.md 现状
+- 剩余工作：按工作项提交合入并同步
+- 事实来源：index.js、test.js、README.md 与 `npm test` 实际运行结果（144 passing）
