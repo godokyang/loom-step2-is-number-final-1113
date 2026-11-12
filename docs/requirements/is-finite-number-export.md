@@ -27,6 +27,8 @@ work_items:
     effort: 0.4
     depends_on:
       - wi-1
+    status: done
+    self_check: README.md 新增 `## isFiniteNumber` 小节：示例覆盖命名导入写法（require('is-number').isFiniteNumber / 解构）、有限 number 返回 true、'3'/NaN/±Infinity/空值等返回 false，并说明命名导出与默认导出的区别及适用场景。
   - id: wi-4
     title: 维护需求文档工作事实并自检合入
     deliverable: docs/requirements/is-finite-number-export.md 工作事实更新，npm test 全绿
